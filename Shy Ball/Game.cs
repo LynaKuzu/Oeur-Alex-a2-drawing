@@ -1,4 +1,5 @@
 ﻿// Include code libraries you need below (use the namespace).
+using Raylib_cs;
 using System;
 using System.Numerics;
 
@@ -19,11 +20,20 @@ namespace Game10003
         public void Setup()
         {
             //setup
-            Window.SetTitle("Shy Ball");
+            Window.SetTitle("ShyeBall");
             Window.SetSize(400, 400);
             Window.TargetFPS = 60;
         }
 
+        void SBall(float x, float y, int red, int green, int blue, int blink)
+        {
+            Draw.FillColor = new(200, 200, 200);
+            Draw.Ellipse(x, y, 50, 25);
+            Draw.FillColor = new((int)Math.Round(mY), (int)Math.Round(mX), clr[jT]);
+            Draw.Circle(x, y, 10);
+            Draw.FillColor = new(0, 0, 0);
+            Draw.Ellipse(x, y - blink, 60, 25);
+        }
 
 
         /// <summary>
@@ -33,10 +43,13 @@ namespace Game10003
         //setting random
 
         ///setting coord variables for ball and mouse
+        int Bnk = 120;
+        bool lid = true;
         float BallX = 200;
         float BallY = 200;
         int[] jX = { 100, 350, 250, 50, 150 };
         int jT = 0;
+        int[] clr = { 155, 0, 50, 255, 100 };
         float dX = 0;
         float mX = 0;
         float mY = 0;
@@ -47,10 +60,9 @@ namespace Game10003
             mX = Input.GetMouseX();
             mY = Input.GetMouseY();
             //refreshing screen
-            Window.ClearBackground(Color.OffWhite);
+            Window.ClearBackground(Color.Black);
             //setting colour and drawing ball
-            Draw.FillColor = new((int)Math.Round(mY), (int)Math.Round(mX), (int)Math.Round((dY + dX )/ 2));
-            Draw.Circle(BallX, BallY, 10);
+            SBall(BallX, BallY, (int)Math.Round(mY), (int)Math.Round(mX), clr[jT], Bnk);
             //distance variable for only X and Y seprately
             //(I do not feel like implementing a**2 + b**2 = c**2)
             dX = mX - BallX;
@@ -65,6 +77,21 @@ namespace Game10003
                 dY = dY * -1;
             }
             //tracking distance
+            if (lid)
+            {
+                Bnk = Bnk - 1;
+                if (Bnk < 1)
+                {
+                    lid = false;
+                }
+            }
+            else
+            {
+                Bnk = Bnk + 1;
+                if (Bnk >= 120) { 
+                lid = true;
+                    }
+            }
             if (dX <= 50)
             {
                 if (dY <= 50)
