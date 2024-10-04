@@ -33,8 +33,10 @@ namespace Game10003
         //setting random
 
         ///setting coord variables for ball and mouse
-        float BallX = Random.Float(100, 300);
-        float BallY = Random.Float(100,300);
+        float BallX = 200;
+        float BallY = 200;
+        int[] jX = { 100, 350, 250, 50, 150 };
+        int jT = 0;
         float dX = 0;
         float mX = 0;
         float mY = 0;
@@ -47,7 +49,7 @@ namespace Game10003
             //refreshing screen
             Window.ClearBackground(Color.OffWhite);
             //setting colour and drawing ball
-            Draw.FillColor = Color.Color(255,255,255,255);
+            Draw.FillColor = new((int)Math.Round(mY), (int)Math.Round(mX), (int)Math.Round((dY + dX )/ 2));
             Draw.Circle(BallX, BallY, 10);
             //distance variable for only X and Y seprately
             //(I do not feel like implementing a**2 + b**2 = c**2)
@@ -67,17 +69,21 @@ namespace Game10003
             {
                 if (dY <= 50)
                 {
-                    //moving in accordance to direction and distance
+                    //moving ball by random value and preset value
                     if (mX > BallX)
                     {
-                        
-                        BallX = Random.Float(100, 300)
-                    }
-                    else
-                    {
-                        BallX = Random.Float(100, 300)
-                    }
 
+                        BallX = jX[jT];
+                        BallY = Random.Float(100, 300);
+                        if (jT <= 3)
+                        {
+                            jT = jT + 1;
+                        }
+                        else
+                        {
+                            jT = 0;
+                        }
+                    }
                 }
             }
         }
