@@ -24,7 +24,7 @@ namespace Game10003
             Window.SetSize(400, 400);
             Window.TargetFPS = 60;
         }
-
+        //drawing eyeball function
         void SBall(float x, float y, int red, int green, int blue, int blink)
         {
             Draw.FillColor = new(200, 200, 200);
@@ -76,7 +76,7 @@ namespace Game10003
             {
                 dY = dY * -1;
             }
-            //tracking distance
+            // blinking values
             if (lid)
             {
                 Bnk = Bnk - 1;
@@ -92,6 +92,7 @@ namespace Game10003
                 lid = true;
                     }
             }
+            //tracking distance
             if (dX <= 50)
             {
                 if (dY <= 50)
